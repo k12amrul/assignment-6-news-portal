@@ -1,27 +1,26 @@
 const loadAllCatagory = async () =>{
+ // const res = await  fetch("https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a")
   const res = await  fetch("https://openapi.programming-hero.com/api/news/categories")
   const data =await res.json()
-  //console.log(data)
+  console.log(data.data)
   return data.data.news_category
 }
 
 
 const setcatagory =async ()=>{
-           // console.log(loadAllNews2())
-             // loadAllNews2()
-             // .then(data =>console.log(data) )
+           
   const data =await loadAllCatagory()
-  console.log(data)
+//  console.log(data)
  const setcatagory=document.getElementById('set-catagory')
-
-  for(const cata of data ){
+ 
+ for(const catagory of data ){
+  //  console.log(catagory)
   const div=document.createElement('div');
   div.innerHTML= `  
-  <button onclick="setAllNews22('${cata.category_id}')"> ${cata.category_name}</button>
-    `;//console.log('p')
-  //  <button onclick="https://openapi.programming-hero.com/api/news/${cata.category_id}"> ${cata.category_name}</button>
-    // <button onclick="https://openapi.programming-hero.com/api/news/${category_id}"> ${cata.category_name}</button>
-    // <button onclick="https://openapi.programming-hero.com/api/news/${category_id}"> ${cata.category_name}</button$>
+  <button  onclick="loadAllNews22('${catagory.category_id}')"> ${catagory.category_name}</button>
+    `;
+    //'${catagory.category_id}'
+    //onclick="loadAllNews22('${catagory.category_id}')
 
     setcatagory.appendChild(div)
     
@@ -32,20 +31,52 @@ const setcatagory =async ()=>{
 
 }
 //---------------------
-const loadAllNews22 = async (id) =>{
-
-  // https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a
-//  https://openapi.programming-hero.com/api/news/category/01
-// const res = await  fetch("https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a")
-const res = await  fetch("https://openapi.programming-hero.com/api/news/category/{category_id}")
+const loadAllNews22 = async id =>{
+//https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a
+  // https://openapi.programming-hero.com/api/news/category/01
+//const res = await  fetch(`https://openapi.programming-hero.com/api/news/category/01`)// cata.category_id  /{category_id}
+// const res = await  fetch('https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a')// cata.category_id  /{category_id}
+const res = await  fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)// cata.category_id  /{category_id}
   const data =await res.json()
 
 
-//   console.log(data.data)
-  return data.data//.data.news_category
+   console.log(data)//thumbnail_url
+ setNews2(data)//thumbnail_url
+ //return data.data
+ 
+ 
+}
+//---------------------//-----------
+
+const setNews2 = Newses=>{
+  console.log(Newses)
+
+  for(const catagoryNewse in Newses ){
+
+        console.log(catagoryNewse)
+      
+      }
+
 
 }
 
+setNews2()
+//---------------------//-----------
+
+// const setNews =async ()=>{
+  
+//   const data =await loadAllNews22()
+//   console.log(data)
+//   for(const catagoryNews of data ){
+
+//     console.log(catagoryNews.author)
+  
+//   }
+// }
+           
+
+ // setNews()
+   loadAllNews22()
 //------------------------
 
 loadAllCatagory()

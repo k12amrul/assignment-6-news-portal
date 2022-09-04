@@ -12,17 +12,17 @@
 
 //     }
 
-    const setAllNews = async  ()=>{
-      const data = await loadAllNews22()
-      console.log(data)
-      for(const news of data ){
-            console.log(news.category_id)
+    // const setAllNews = async  ()=>{
+    //   const data = await loadAllNews22()
+    //   console.log(data)
+    //   for(const news of data ){
+    //         console.log(news.category_id)
             
-      }  
+    //   }  
 
-    }
+    // }
 
 
 
-    setAllNews()
+    // setAllNews()
     //loadAllNews()
