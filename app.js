@@ -1,11 +1,11 @@
 
 const loadAllCatagory = async () =>{
-  // const res = await  fetch("https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a")
    const res = await  fetch("https://openapi.programming-hero.com/api/news/categories")
    const data =await res.json()
- //  console.log(data.data)
+  //  console.log(data.data.news_category)
    return data.data.news_category
  }
+ 
  
  
  const setcatagory =async ()=>{
@@ -15,161 +15,118 @@ const loadAllCatagory = async () =>{
   const setcatagory=document.getElementById('set-catagory')
   
   for(const catagory of data ){
-   //  console.log(catagory)
-   const div=document.createElement('div');
-   div.innerHTML= `  
+    //  console.log(catagory)
+    //  console.log(data)
+   const catagoryItem=document.createElement('div');
+   catagoryItem.innerHTML= `  
    <button  onclick="loadAllNews22('${catagory.category_id}')"> ${catagory.category_name}</button>
      `;
-     //'${catagory.category_id}'
-     //onclick="loadAllNews22('${catagory.category_id}')
-
+    
  
-     setcatagory.appendChild(div)
+     setcatagory.appendChild(catagoryItem)
      
  
-    // console.log(cata.category_name)
+    
  
    }
  
  }
  //---------------------
  const loadAllNews22 = async id =>{
- //https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a
-   // https://openapi.programming-hero.com/api/news/category/01
- //const res = await  fetch(`https://openapi.programming-hero.com/api/news/category/01`)// cata.category_id  /{category_id}
- // const res = await  fetch('https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a')// cata.category_id  /{category_id}
  const res = await  fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)// cata.category_id  /{category_id}
    const data =await res.json()
  
- 
    console.log(data)//thumbnail_url
-   setNews2(data)//thumbnail_url
-// setNews2(data.data)//  .category_id  thumbnail_url//  [0].author  image_url
-  //return data.data
-  
+ 
+   setNewscontainer(data)//thumbnail_url
+// 
   
  }
  //---------------------//-----------
- 
- 
- const setNews2 = async Newses=>{
-   console.log(Newses.data)
+ const setNewscontainer = async Newses=>{
    console.log(Newses)
+   console.log(Newses.data)
    //console.log(Newses.data[0])
 
    //----------------------------------k
    const newsContainer = document.getElementById("news-container");
+
+   newsContainer.textContent = '';
    Newses.data.forEach(singleNews => {
-    const {author,details,image_url,title}=singleNews
-    const {name,published_date}=author
+    const {total_view, author,details,image_url,title}=singleNews
+    const {   img ,name,published_date}=author
+
+    // const oldcard =document.getElementsByClassName('col')
+    // newsContainer.removeChild(oldcard)
+    // modal
     
-  //  console.log(name,details)
-   // console.log(singleNews)
+    // modal
+  
     const newsCard = document.createElement("div");
+    
     newsCard.classList.add("col");
+
+   
     newsCard.innerHTML=`
     <div class="card w-96 bg-base-100 shadow-xl">
         <figure><img src="${image_url}"/></figure>
         <div class="card-body">
           <h2 class="card-title">${title}</h2>
           <p>${details}</p>
+          <div > 
+          <div class=" w-10 h-10 rounded-lg">
+    <img src=${img}/>
+  </div>
           <h4 class="card-title">${name}</h4>
           <p>${published_date}</p>
+          </div>
+          <p> views ${total_view}</p>
 
+          <button onClick={'hhh'}>hh</button>
 
-          <div class="card-actions justify-end">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<label for="my-modal-6" class="btn">open modal</label>
+
+<input type="checkbox" id="my-modal-6" class="modal-toggle" />
+<div class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+  <div class=" w-20 h-20 rounded-lg">
+  <img src=${img}/>
+</div>
+
+    <h3 class="font-bold text-lg"> ${name } </h3>
+    <p> ${ published_date }</p>
+    <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+    <div class="modal-action">
+      <label for="my-modal-6" class="btn">Yay!</label>
     </div>
   </div>
 </div>
-        
-           
-           
-           
 
+          
 
-          </div>
+ 
         </div>
       </div>
     
     `;
-
-    // modal button
-    
-    //     <button onclick="${published_date}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    // Launch demo modal
-    // </button>
-
-    // modal button
+    // newsContainer.removeChild()
     newsContainer.appendChild(newsCard)
 
 
     
    });
 
-   //------------------------------------k
-// image_url details   author
-  // for(const dd of Newses ){
-  //   console.log(dd)
-  // ///  console.log(dd.author.rating.thumbnail_url)
-  //   // console.log(dd.author.image_url)
-  //   // console.log(dd.author.name)
-  //   // console.log(dd.author.img)
-  // }
-  //  console.log(Newses[0].author)
-    // const newsArray=Newses
-    // console.log(newsArray)
- //    N.forEach(news11 => {
- //    // console.log(newsArray)
-     
- //   // console.log(news)
- //  });
- 
-   // for(const catagoryNewse in Newses ){
- 
-   //       console.log(catagoryNewse)
-       
-   //     }
- 
+   
  
  }
  
  //setNews2()
  //---------------------//-----------
  
- // const setNews =async ()=>{
-   
- //   const data =await loadAllNews22()
- //   console.log(data)
- //   for(const catagoryNews of data ){
- 
- //     console.log(catagoryNews.author)
-   
- //   }
- // }
-            
- 
- //  setNews2()
     loadAllNews22()
  //------------------------
  
- loadAllCatagory()
+//  loadAllCatagory()
  setcatagory()
  
  
