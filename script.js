@@ -1,6 +1,0 @@
-
-
-
-
-    // setAllNews()
-    //loadAllNews()
